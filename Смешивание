@@ -1,0 +1,41 @@
+import random
+
+# Alphabet cyrillique
+alphabet = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+
+def generate_key():
+    # Génère une clé de substitution aléatoire
+    shuffled_alphabet = random.sample(alphabet, len(alphabet))
+    key = dict(zip(alphabet, shuffled_alphabet))
+    return key
+
+def encrypt(message, key):
+    # Crypte le message avec la clé de substitution
+    cipher_text = ''
+    for letter in message:
+        if letter in alphabet:
+            cipher_text += key[letter]
+        else:
+            cipher_text += letter
+    return cipher_text
+
+def decrypt(cipher_text, key):
+    # Décrypte le message avec la clé de substitution
+    message = ''
+    for letter in cipher_text:
+        if letter in alphabet:
+            message += key[letter]
+        else:
+            message += letter
+    return message
+
+# Exemple d'utilisation
+key = generate_key()
+print('Clé de substitution :', key)
+
+message = 'Привет, мир!'
+cipher_text = encrypt(message, key)
+print('Message crypté :', cipher_text)
+
+decrypted_message = decrypt(cipher_text, key)
+print('Message décrypté :', decrypted_message)
